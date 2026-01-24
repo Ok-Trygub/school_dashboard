@@ -12,6 +12,7 @@ import {LuMessageCircleMore} from "react-icons/lu";
 import {TfiAnnouncement} from "react-icons/tfi";
 import {ImProfile} from "react-icons/im";
 import {IoMdLogOut} from "react-icons/io";
+import {role} from "@/lib/data";
 
 
 const menuItems = [
@@ -146,19 +147,22 @@ const menuItems = [
     },
 ];
 
+
 const Menu = () => {
     return (
         <nav className={"text-sm"}>
             {menuItems.map(menuSection => (
                 <li key={menuSection.title} className={"list-none p-0 m-0 flex flex-col gap-2"}>
                     <span className={"hidden lg:block text-gray-400 font-light mt-5 mb-2"}>{menuSection.title}</span>
-                    {menuSection.items.map(menuItem => (
-                        <Link href={menuItem.href} key={menuItem.id}
-                              className={"flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-1"}>
-                            <span>{menuItem.icon}</span>
-                            <span className={"hidden lg:block"}>{menuItem.label}</span>
-                        </Link>
-                    ))
+                    {menuSection.items.map(menuItem => {
+                        if (menuItem.visible.includes(role)) {
+                            return <Link href={menuItem.href} key={menuItem.id}
+                                         className={"flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-1 rounded-md hover:bg-skyBlue"}>
+                                <span>{menuItem.icon}</span>
+                                <span className={"hidden lg:block"}>{menuItem.label}</span>
+                            </Link>
+                        }
+                    })
                     }
                 </li>
             ))}

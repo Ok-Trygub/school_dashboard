@@ -44,8 +44,8 @@ const data = [
 const AttendanceChart = () => {
     return (
         <div className={"bg-white rounded-lg p-4 h-full"}>
-            <div className={''}>
-                <h3>Attendance</h3>
+            <div>
+                <h3 className={"text-lg font-semibold"}>Attendance</h3>
             </div>
             <ResponsiveContainer width="100%" height={'90%'}>
                 <BarChart
@@ -54,9 +54,9 @@ const AttendanceChart = () => {
                     data={data}
                 >
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={"#ddd"}/>
-                    <XAxis dataKey="name" axisLine={false}/>
-                    <YAxis width="auto"/>
-                    <Tooltip/>
+                    <XAxis dataKey="name" axisLine={false} tick={{fill: "#d1d5db"}} tickLine={false}/>
+                    <YAxis width="auto" axisLine={false} tick={{fill: "#d1d5db"}} tickLine={false}/>
+                    <Tooltip contentStyle={{borderRadius: "10px"}}/>
                     <Legend
                         align={'left'}
                         verticalAlign={'top'}
