@@ -1,7 +1,7 @@
 import React from 'react';
 import EventCalendar from "@/components/EventCalendar/EventCalendar";
 import Announcements from "@/components/Announcements";
-import BigCalendar from "@/components/BigCalendar";
+import BigCalendar from "@/components/BigCalendar/BigCalendar";
 
 const StudentPage = () => {
     return (

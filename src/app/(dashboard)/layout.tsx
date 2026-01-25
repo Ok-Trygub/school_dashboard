@@ -7,15 +7,15 @@ import Navbar from "@/components/Navbar";
 
 export default function DashboardLayout({children}: Readonly<{children: React.ReactNode}>) {
     return (
-        <div className={"h-screen flex"}>
+        <div className={"h-screen flex over"}>
             <div className={"w-[14%] md:w-[16%] lh:w-[20%] xl:w-[14%] p-4"}>
-                <Link href={"/"} className={"flex items-center justify-center lg:justify-start gap-2 mb-2"}>
+                <Link href={"/"} className={"flex items-center justify-center lg:justify-start gap-2"}>
                     <Image src={Logo} alt="logo" width={32} height={32}/>
                     <span className="hidden lg:block font-bold">Your School</span>
                 </Link>
                 <Menu/>
             </div>
-            <div className={"w-[86%] md:w-[84%] lh:w-[80%] xl:w-[86%] bg-[#F7F8FA] overflow-scroll"}>
+            <div className={"w-[86%] md:w-[84%] lh:w-[80%] xl:w-[86%] bg-[#F7F8FA] overflow-auto flex flex-col"}>
                 <Navbar/>
                 {children}
             </div>
