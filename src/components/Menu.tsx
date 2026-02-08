@@ -29,7 +29,7 @@ const menuItems = [
             {
                 id: 2,
                 icon: <GiTeacher size={20}/>,
-                label: "teachers",
+                label: "Teachers",
                 href: "/list/teachers",
                 visible: ["admin", "teacher"],
             },
