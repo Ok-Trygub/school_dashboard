@@ -3,49 +3,54 @@ import TableSearch from "@/components/TableSearch";
 import {HiAdjustmentsVertical} from "react-icons/hi2";
 import {BiSortUp} from "react-icons/bi";
 import {LuCirclePlus} from "react-icons/lu";
-import Pagination from "@/components/Pagination";
 import Table, {ITableColumn} from "@/components/Table";
-import Image from "next/image";
-import Link from "next/link";
-import {MdOutlineViewCozy} from "react-icons/md";
-import {RiDeleteBinLine} from "react-icons/ri";
+import {resultsData, role} from "@/lib/data";
+import Pagination from "@/components/Pagination";
+import {RiEdit2Line} from "react-icons/ri";
 import {Roles} from "@/enums/roles";
-import {role, teachersData} from "@/lib/data";
+import Link from "next/link";
+import {RiDeleteBinLine} from "react-icons/ri";
 
-type ITeacher = {
+
+type IResult = {
     id: number;
-    name: string,
-    email?: string,
-    photo: string,
-    phone: string,
-    subjects: string[],
-    classes: string[],
-    address: string
+    subject: string,
+    class: string,
+    teacher: string,
+    student: string,
+    type: "exam" | "assignment",
+    date: string,
+    score: number
 }
 
 const tableColumns: ITableColumn[] = [
     {
-        header: "Info",
-        accessor: "info"
+        header: "Subject Name",
+        accessor: "name"
     },
     {
-        header: "Teacher Id",
-        accessor: "teacherId",
-        className: "hidden lg:table-cell"
+        header: "Student",
+        accessor: "student"
     },
     {
-        header: "Subjects",
-        accessor: "subjects",
-        className: "hidden lg:table-cell"
-    },
-    {
-        header: "Classes",
-        accessor: "classes",
+        header: "Score",
+        accessor: "score",
         className: "hidden md:table-cell"
     },
     {
-        header: "Phone",
-        accessor: "phone"
+        header: "Teacher",
+        accessor: "teacher",
+        className: "hidden md:table-cell"
+    },
+    {
+        header: "Class",
+        accessor: "class",
+        className: "hidden md:table-cell"
+    },
+    {
+        header: "date",
+        accessor: "date",
+        className: "hidden md:table-cell"
     },
     {
         header: "Actions",
@@ -54,24 +59,20 @@ const tableColumns: ITableColumn[] = [
     }
 ]
 
-const TeachersListPage = () => {
-    const renderRow = (item: ITeacher): React.ReactNode => {
+
+const ResultsListPage = () => {
+    const renderRow = (item: IResult): React.ReactNode => {
         return <tr key={item.id} className={'border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lightPurple'}>
-            <td className={'flex items-center gap-4 p-4'}>
-                <div className={"md:hidden xl:flex w-10 h-10 rounded-full object-cover items-center"}>{item.photo}</div>
-                <div className={'flex flex-col'}>
-                    <div className={'font-semibold'}>{item.name}</div>
-                    <p className={'text-xs text-gray-500 cursor-default'}>{item.email}</p>
-                </div>
-            </td>
-            <td className={'hidden lg:table-cell cursor-default'}>{item.id}</td>
-            <td className={'hidden lg:table-cell cursor-default'}>{item.subjects.join(', ')}</td>
-            <td className={'hidden md:table-cell cursor-default'}>{item.classes.join(', ')}</td>
-            <td className={'cursor-default'}>{item.phone}</td>
+            <td className={'flex items-center gap-4 p-4'}>{item.subject}</td>
+            <td className={'cursor-default'}>{item.student}</td>
+            <td className={'hidden md:table-cell cursor-default'}>{item.score}</td>
+            <td className={'hidden md:table-cell cursor-default'}>{item.teacher}</td>
+            <td className={'hidden md:table-cell cursor-default'}>{item.class}</td>
+            <td className={'hidden md:table-cell cursor-default'}>{item.date}</td>
             <td className={''}>
                 <div className={'flex items-center gap-2 justify-end pr-4'}>
                     <button className={'w-7 h-7 flex items-center justify-center rounded-full bg-skyBlue'}>
-                        <MdOutlineViewCozy size={16} color={'ffffff'}/>
+                        <RiEdit2Line size={16} color={'ffffff'}/>
                     </button>
                     {role === Roles.Admin &&
                         <Link href={`/list/teachers/${item.id}`}>
@@ -88,7 +89,7 @@ const TeachersListPage = () => {
     return (
         <div className={'bg-white p-4 rounded-md flex-1 m-4 mt-0'}>
             <div className={'flex items-center justify-between'}>
-                <h2 className={"hidden md:block text-lg font-semibold"}>All Teachers</h2>
+                <h2 className={"hidden md:block text-lg font-semibold"}>All Results</h2>
                 <div className={'flex flex-col md:flex-row items-center gap-4 w-full md:w-auto'}>
                     <TableSearch/>
 
@@ -110,11 +111,11 @@ const TeachersListPage = () => {
             <Table
                 columns={tableColumns}
                 renderRow={renderRow}
-                data={teachersData}
+                data={resultsData}
             />
             <Pagination/>
         </div>
     );
 };
 
-export default TeachersListPage;
+export default ResultsListPage;

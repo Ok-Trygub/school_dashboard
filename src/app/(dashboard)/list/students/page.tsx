@@ -3,24 +3,23 @@ import TableSearch from "@/components/TableSearch";
 import {HiAdjustmentsVertical} from "react-icons/hi2";
 import {BiSortUp} from "react-icons/bi";
 import {LuCirclePlus} from "react-icons/lu";
-import Pagination from "@/components/Pagination";
 import Table, {ITableColumn} from "@/components/Table";
-import Image from "next/image";
-import Link from "next/link";
+import {role, studentsData} from "@/lib/data";
+import Pagination from "@/components/Pagination";
 import {MdOutlineViewCozy} from "react-icons/md";
-import {RiDeleteBinLine} from "react-icons/ri";
 import {Roles} from "@/enums/roles";
-import {role, teachersData} from "@/lib/data";
+import Link from "next/link";
+import {RiDeleteBinLine} from "react-icons/ri";
 
-type ITeacher = {
+
+type IStudent = {
     id: number;
     name: string,
     email?: string,
     photo: string,
-    phone: string,
-    subjects: string[],
-    classes: string[],
-    address: string
+    phone?: string,
+    grade: number,
+    class: string
 }
 
 const tableColumns: ITableColumn[] = [
@@ -29,18 +28,13 @@ const tableColumns: ITableColumn[] = [
         accessor: "info"
     },
     {
-        header: "Teacher Id",
-        accessor: "teacherId",
-        className: "hidden lg:table-cell"
+        header: "Student Id",
+        accessor: "studentId",
+        className: "hidden md:table-cell"
     },
     {
-        header: "Subjects",
-        accessor: "subjects",
-        className: "hidden lg:table-cell"
-    },
-    {
-        header: "Classes",
-        accessor: "classes",
+        header: "Grade",
+        accessor: "grade",
         className: "hidden md:table-cell"
     },
     {
@@ -54,19 +48,19 @@ const tableColumns: ITableColumn[] = [
     }
 ]
 
-const TeachersListPage = () => {
-    const renderRow = (item: ITeacher): React.ReactNode => {
+
+const StudentsListPage = () => {
+    const renderRow = (item: IStudent): React.ReactNode => {
         return <tr key={item.id} className={'border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lightPurple'}>
             <td className={'flex items-center gap-4 p-4'}>
                 <div className={"md:hidden xl:flex w-10 h-10 rounded-full object-cover items-center"}>{item.photo}</div>
                 <div className={'flex flex-col'}>
                     <div className={'font-semibold'}>{item.name}</div>
-                    <p className={'text-xs text-gray-500 cursor-default'}>{item.email}</p>
+                    <p className={'text-xs text-gray-500 cursor-default'}>{item.class}</p>
                 </div>
             </td>
-            <td className={'hidden lg:table-cell cursor-default'}>{item.id}</td>
-            <td className={'hidden lg:table-cell cursor-default'}>{item.subjects.join(', ')}</td>
-            <td className={'hidden md:table-cell cursor-default'}>{item.classes.join(', ')}</td>
+            <td className={'hidden md:table-cell cursor-default'}>{item.id}</td>
+            <td className={'hidden md:table-cell cursor-default'}>{item.grade}</td>
             <td className={'cursor-default'}>{item.phone}</td>
             <td className={''}>
                 <div className={'flex items-center gap-2 justify-end pr-4'}>
@@ -88,7 +82,7 @@ const TeachersListPage = () => {
     return (
         <div className={'bg-white p-4 rounded-md flex-1 m-4 mt-0'}>
             <div className={'flex items-center justify-between'}>
-                <h2 className={"hidden md:block text-lg font-semibold"}>All Teachers</h2>
+                <h2 className={"hidden md:block text-lg font-semibold"}>All Students</h2>
                 <div className={'flex flex-col md:flex-row items-center gap-4 w-full md:w-auto'}>
                     <TableSearch/>
 
@@ -110,11 +104,11 @@ const TeachersListPage = () => {
             <Table
                 columns={tableColumns}
                 renderRow={renderRow}
-                data={teachersData}
+                data={studentsData}
             />
             <Pagination/>
         </div>
     );
 };
 
-export default TeachersListPage;
+export default StudentsListPage;
